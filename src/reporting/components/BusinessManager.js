@@ -21,7 +21,7 @@ import {
     NEW_VACANCY,
     CV_SENT,
 } from '../expandView/expandView.sagas'
-import TableCellWithTooltip, { BOLD } from './TableCellWithTooltip'
+import TableCellWithTooltip, { BOLD, REGULAR } from './TableCellWithTooltip'
 import {
     FIRST_WEEK, SECOND_WEEK, FOURTH_WEEK, THIRD_WEEK
 } from '../kpi/kpi.sagas'
@@ -108,14 +108,14 @@ const BusinessManager = ({ datas, isCvSentWeekLoading }) => {
                     } else if (datas[key].TITLE === LABEL_PROSPECTION_MEETING_SCHEDULE) {
                         return (
                             <TableContentTbodyTr key={i}>
-                                <TableContentTdLabelBold>{datas[key].TITLE}</TableContentTdLabelBold>
+                                <TableContentTdLabel>{datas[key].TITLE}</TableContentTdLabel>
                                 {
                                     tableWeek.map((week) => {
                                         if (datas[key][week] === 0) {
-                                            return (<TableContentTdBold key={week}>0</TableContentTdBold>)
+                                            return (<TableContentTd key={week}>0</TableContentTd>)
                                         } else {
                                             return (
-                                                <TableCellWithTooltip fontWeight={BOLD} key={week} week={week} title={PROSPECTION_MEETING_SCHEDULED} text={datas[key][week]} />
+                                                <TableCellWithTooltip fontWeight={REGULAR} key={week} week={week} title={PROSPECTION_MEETING_SCHEDULED} text={datas[key][week]} />
                                             )
                                         }
                                     }
@@ -146,14 +146,14 @@ const BusinessManager = ({ datas, isCvSentWeekLoading }) => {
                     } else if (datas[key].TITLE === LABEL_NEW_VACANCY) {
                         return (
                             <TableContentTbodyTr key={i}>
-                                <TableContentTdLabelBold>{datas[key].TITLE}</TableContentTdLabelBold>
+                                <TableContentTdLabel>{datas[key].TITLE}</TableContentTdLabel>
                                 {
                                     tableWeek.map((week) => {
                                         if (datas[key][week] === 0) {
-                                            return (<TableContentTdBold key={week}>0</TableContentTdBold>)
+                                            return (<TableContentTd key={week}>0</TableContentTd>)
                                         } else {
                                             return (
-                                                <TableCellWithTooltip fontWeight={BOLD} key={week} week={week} title={NEW_VACANCY} text={datas[key][week]} />
+                                                <TableCellWithTooltip fontWeight={REGULAR} key={week} week={week} title={NEW_VACANCY} text={datas[key][week]} />
                                             )
                                         }
                                     }
