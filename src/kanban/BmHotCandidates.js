@@ -2,12 +2,13 @@ import React, { useEffect, useRef, useState } from "react"
 import { v4 as uuid } from "uuid"
 import { connect } from "react-redux"
 import { pathOr } from "ramda"
-import { number, object, string, oneOf, array, func, oneOfType } from "prop-types"
+import { number, object, string, oneOf, array, func, oneOfType, bool } from "prop-types"
 import styled, { css } from "styled-components"
 import { Column } from "../components"
 import ClientCorporation from "./ClientCorporation"
 import { ADD, ADD_COMPANY, DELETE } from "../hotCandidates/utils"
 import AddButton from "../components/AddButton"
+import UpdateButton from "../components/UpdateButton"
 import TitleBackground from "../components/svgs/TitleBackground"
 
 export const HOT_CANDIDATES = "HOT_CANDIDATES"
@@ -20,6 +21,13 @@ const StyledAddButton = styled(AddButton)`
   grid-column: 1;
   grid-row: 3;
   margin-left: 4rem;
+`
+const StyledUpdateButton = styled(UpdateButton)`
+  align-self: end;
+  grid-column: 1;
+  grid-row: 3;
+  margin-left: 6rem;
+  width: max-content;
 `
 
 const Container = styled.div`
@@ -84,7 +92,7 @@ const StyledTitleBackground = styled(TitleBackground)`
   top: 0;
 `
 
-const Bm = ({ bm, jobOrderId, color, title, data, kanbanType = BUSINESS, onOpenModal }) => {
+const Bm = ({ bm, jobOrderId, color, title, data, updateData, kanbanType = BUSINESS, onOpenModal, handleUpdateQuery }) => {
   const containerRef = useRef(null)
   const [height, setHeight] = useState(0)
 
@@ -115,6 +123,11 @@ const Bm = ({ bm, jobOrderId, color, title, data, kanbanType = BUSINESS, onOpenM
     onOpenModal({ title, modalType: ADD_COMPANY, candidateId, identified })
   }
 
+
+  // const sortedData = dataToRender.sort((a,b) => {
+  //   return Date.parse(b.dateAvailable?.exactDate) - Date.parse(a.dateAvailable?.exactDate)}
+  // );
+
   return (
     <Container ref={containerRef}>
       <Title color={color} height={height}>
@@ -123,7 +136,23 @@ const Bm = ({ bm, jobOrderId, color, title, data, kanbanType = BUSINESS, onOpenM
       </Title>
       <StyledColumn>
         {dataToRender?.length > 0 ? (
+
+          // sortedData.map((single, index) => (
+          //   <ClientCorporation
+          //     key={uuid()}
+          //     bmId={single?.bmId}
+          //     ccId={single?.ccId}
+          //     color={color}
+          //     kanbanType={kanbanType}
+          //     data={kanbanType === HOT_CANDIDATES ? single : null}
+          //     index={index}
+          //     onOpenDeleteModal={handleClickDeleteButton}
+          //     onOpenAddCompanyModal={handleClickAddCompanyButton}
+          //   />
+          // ))
+
           dataToRender?.map((single, index) => (
+          console.log("single:",single),
             <ClientCorporation
               key={uuid()}
               bmId={single?.bmId}
@@ -141,7 +170,12 @@ const Bm = ({ bm, jobOrderId, color, title, data, kanbanType = BUSINESS, onOpenM
         )}
       </StyledColumn>
       {kanbanType === HOT_CANDIDATES ? (
-        <StyledAddButton backgroundColor={color} onClick={handleClickAddButton} title="Add candidate" />
+        <>
+          <StyledAddButton backgroundColor={color} onClick={handleClickAddButton} title="Add candidate" />
+          {updateData &&
+          <StyledUpdateButton backgroundColor={color} onClick={handleUpdateQuery} title="Update list" />}
+        </>
+
       ) : null}
     </Container>
   )
@@ -157,6 +191,8 @@ Bm.propTypes = {
   kanbanType: oneOf(["HOT_CANDIDATES", "BUSINESS"]),
   onOpenModal: func,
   onOpenAddCompanyModal: func,
+  updateData: bool,
+  handleUpdateQuery: func
 }
 
 export default connect((state, { bmId }) => ({

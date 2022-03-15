@@ -11,7 +11,7 @@ import {
 } from "date-fns"
 import styled from "styled-components"
 import PropTypes from "prop-types"
-import { useJobOrdersWithJobSubmissions, useJobSubmissions, IDENTIFIED_COMPANIES_FIELD_KEY } from "../hooks"
+import { useFindWFP, useJobOrdersWithJobSubmissions, useJobSubmissions, useAddJobSubmission, IDENTIFIED_COMPANIES_FIELD_KEY } from "../hooks"
 import theme from "../style/theme"
 import Bm from "../kanban/BmHotCandidates"
 import {
@@ -176,6 +176,9 @@ const HotCandidatesPage = ({ updatedJobSubmission }) => {
   const [modalState, setModalState] = useState(initialModalState)
 
   const jobOrdersWithJobSubmission = useJobOrdersWithJobSubmissions()
+  const addJobSubmission = useAddJobSubmission()
+
+  const findWFP = useFindWFP()
 
   const candidateIds = [
     ...new Set(
@@ -239,6 +242,7 @@ const HotCandidatesPage = ({ updatedJobSubmission }) => {
     },
     [updatedJobSubmission]
   )
+
 
   const getPerPanelData = useCallback(
     (bullhornId) => {
@@ -340,6 +344,20 @@ const HotCandidatesPage = ({ updatedJobSubmission }) => {
     setModalState(newModalState)
   }
 
+
+const wfpIDFront =  data?.wfp?.map((i) => i.id)
+const wfpIDBack =  findWFP?.data?.data?.map((i) => i.id)
+
+const handleUpdateQuery = () => {
+  if (wfpIDBack?.length > 0 && wfpIDFront?.length > 0) {
+    let wfpToAdd = wfpIDBack.filter(x => !wfpIDFront.includes(x));
+      if ((wfpToAdd?.length > 0) ) {
+        for (let i = 0; i < wfpToAdd?.length; i++) {
+          addJobSubmission.mutate({ jobOrderId:WFP_ID, candidateId: wfpToAdd[i] });
+        }
+      }
+  }
+}
   return (
     <>
       <Main>
@@ -366,6 +384,8 @@ const HotCandidatesPage = ({ updatedJobSubmission }) => {
           title={WFP_TITLE}
           onOpenModal={handleOpenModal}
           jobOrderId={WFP_ID}
+          updateData={true}
+          handleUpdateQuery={handleUpdateQuery}
         />
       </Main>
       <AddCandidateModal

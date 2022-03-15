@@ -3,6 +3,7 @@ export { default as useDebounce } from "./useDebounce"
 export { default as useDeleteJobSubmission } from "./useDeleteJobSubmission"
 export { default as useFind } from "./useFind"
 export { default as useFindCandidates } from "./useFindCandidates"
+export { default as useFindWFP } from "./useFindWFP"
 export { default as useIdentifiedCompanies } from "./useIdentifiedCompanies"
 export {
   default as useJobOrdersWithJobSubmissions,
