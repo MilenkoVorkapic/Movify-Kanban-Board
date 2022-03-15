@@ -51,7 +51,7 @@ export default {
     "#6BD7DA",
     "#FF8A40",
     "#FFBF53",
-    "#E14E45",
+    "#E04175",
     "#60C659",
     "#7758B3",
     "#84DCCF",
@@ -60,7 +60,7 @@ export default {
     "#246EB9",
     "#C9B7E8",
     "#EDA765",
-    "#C2ABE8",
+    "#4858D3",
     "#f34d3d",
     "#FCAD56",
     "#FF7F1E",
@@ -68,7 +68,7 @@ export default {
   ],
   pipeColors: ["#17B79B", "#6BD7DA", "#F7E06B", "#C9B7E8", "#EDA765"],
   hrColors: [
-    "#C2ABE8",
+    "#4858D3",
     "#f34d3d",
     "#FCAD56",
     "#17B79B",
@@ -96,6 +96,6 @@ export default {
     john: "#6BD7DA",
     louis: "#FF8A40",
     michiel: "#FFBF53",
-    sacha: "#E14E45",
+    sacha: "#E04175",
   }
 };
