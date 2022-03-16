@@ -268,7 +268,7 @@ const HotCandidatesPage = ({ updatedJobSubmission }) => {
           lastName: candidate.lastName,
           dateAvailable,
           dateColorCode,
-          role: candidate.occupation,
+          role: candidate.category.name,
           type: PANEL_DATA_MAP.get(bullhornId).type,
           ...jobSubmissionsCandidatePerStatus,
         }
