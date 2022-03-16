@@ -22,13 +22,13 @@ const StyledAddButton = styled(AddButton)`
   grid-row: 3;
   margin-left: 4rem;
 `
-const StyledUpdateButton = styled(UpdateButton)`
-  align-self: end;
-  grid-column: 1;
-  grid-row: 3;
-  margin-left: 6rem;
-  width: max-content;
-`
+// const StyledUpdateButton = styled(UpdateButton)`
+//   align-self: end;
+//   grid-column: 1;
+//   grid-row: 3;
+//   margin-left: 6rem;
+//   width: max-content;
+// `
 
 const Container = styled.div`
   display: grid;
@@ -92,7 +92,17 @@ const StyledTitleBackground = styled(TitleBackground)`
   top: 0;
 `
 
-const Bm = ({ bm, jobOrderId, color, title, data, updateData, kanbanType = BUSINESS, onOpenModal, handleUpdateQuery }) => {
+const Bm = ({
+bm,
+jobOrderId,
+color,
+title,
+data,
+kanbanType = BUSINESS,
+onOpenModal,
+// updateData,
+// handleUpdateQuery
+}) => {
   const containerRef = useRef(null)
   const [height, setHeight] = useState(0)
 
@@ -151,8 +161,8 @@ const Bm = ({ bm, jobOrderId, color, title, data, updateData, kanbanType = BUSIN
       {kanbanType === HOT_CANDIDATES ? (
         <>
           <StyledAddButton backgroundColor={color} onClick={handleClickAddButton} title="Add candidate" />
-          {updateData &&
-          <StyledUpdateButton backgroundColor={color} onClick={handleUpdateQuery} title="Update list" />}
+          {/* {updateData &&
+          <StyledUpdateButton backgroundColor={color} onClick={handleUpdateQuery} title="Update list" />} */}
         </>
 
       ) : null}
@@ -170,8 +180,8 @@ Bm.propTypes = {
   kanbanType: oneOf(["HOT_CANDIDATES", "BUSINESS"]),
   onOpenModal: func,
   onOpenAddCompanyModal: func,
-  updateData: bool,
-  handleUpdateQuery: func
+  // updateData: bool,
+  // handleUpdateQuery: func
 }
 
 export default connect((state, { bmId }) => ({
