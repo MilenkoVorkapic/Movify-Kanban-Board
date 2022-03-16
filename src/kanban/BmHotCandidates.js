@@ -123,11 +123,6 @@ const Bm = ({ bm, jobOrderId, color, title, data, updateData, kanbanType = BUSIN
     onOpenModal({ title, modalType: ADD_COMPANY, candidateId, identified })
   }
 
-
-  // const sortedData = dataToRender.sort((a,b) => {
-  //   return Date.parse(b.dateAvailable?.exactDate) - Date.parse(a.dateAvailable?.exactDate)}
-  // );
-
   return (
     <Container ref={containerRef}>
       <Title color={color} height={height}>
@@ -136,23 +131,7 @@ const Bm = ({ bm, jobOrderId, color, title, data, updateData, kanbanType = BUSIN
       </Title>
       <StyledColumn>
         {dataToRender?.length > 0 ? (
-
-          // sortedData.map((single, index) => (
-          //   <ClientCorporation
-          //     key={uuid()}
-          //     bmId={single?.bmId}
-          //     ccId={single?.ccId}
-          //     color={color}
-          //     kanbanType={kanbanType}
-          //     data={kanbanType === HOT_CANDIDATES ? single : null}
-          //     index={index}
-          //     onOpenDeleteModal={handleClickDeleteButton}
-          //     onOpenAddCompanyModal={handleClickAddCompanyButton}
-          //   />
-          // ))
-
           dataToRender?.map((single, index) => (
-          console.log("single:",single),
             <ClientCorporation
               key={uuid()}
               bmId={single?.bmId}

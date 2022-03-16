@@ -20,6 +20,7 @@ import {
   STATUS_TO_SEND,
   STATUS_WF_FEEDBACK_2,
   STATUS_WF_RESPONSE,
+  STATUS_NO_GO,
 } from "../utils/kanban"
 import AddCandidateModal from "./AddCandidateModal"
 import DeleteCandidateModal from "./DeleteCandidateModal"
@@ -39,6 +40,7 @@ export const JOB_SUBMISSION_STATUSES_MAP = new Map([
   [STATUS_INTAKE, "intake"],
   [STATUS_WF_FEEDBACK_2, "wfFeedback"],
   [STATUS_IDENTIFIED, "identified"],
+  [STATUS_NO_GO, "noGo"],
 ])
 
 const BENCH_TITLE = "Bench"
@@ -198,6 +200,7 @@ const HotCandidatesPage = ({ updatedJobSubmission }) => {
         intake: [],
         wfFeedback: [],
         identified: [],
+        noGo: [],
       }
 
       for (const jobSubmissionCandidate of jobSubmissionsCandidatesData) {
