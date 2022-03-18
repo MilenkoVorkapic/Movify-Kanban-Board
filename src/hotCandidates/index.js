@@ -118,10 +118,12 @@ const formatDate = (dateAvailable) => {
     },
     {
       locale: "nl-BE",
-    }
+    },
   )
+  const rawDate = dateAvailable
 
-  return { exactDate, relativeDate }
+
+  return { exactDate, relativeDate, rawDate }
 }
 
 const getDateAvailableAndDateColorCode = (candidate) => {
@@ -362,13 +364,22 @@ const HotCandidatesPage = ({ updatedJobSubmission }) => {
 //   }
 // }
 
+
+  const sortedDataBench = data?.bench.sort(function(a,b){
+    const aDate =a?.dateAvailable?.rawDate
+    const bDate = b?.dateAvailable?.rawDate
+
+    return (aDate - bDate);
+  })
+
+
   return (
     <>
       <Main>
         <Bm
           color={theme.hotCandidateStatusColors.green}
           kanbanType="HOT_CANDIDATES"
-          data={data.bench}
+          data={sortedDataBench}
           title={BENCH_TITLE}
           onOpenModal={handleOpenModal}
           jobOrderId={BENCH_ID}
