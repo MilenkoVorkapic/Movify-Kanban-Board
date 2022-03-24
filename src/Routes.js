@@ -21,6 +21,7 @@ import Header from "./Header"
 import Reporting from "./reporting/components/Reporting"
 import HotCandidates from "./hotCandidates"
 import { useUpdateJobSubmission } from "./hooks"
+import Transition from "./transition/Transition"
 
 const Container = styled.div({
   paddingLeft: 25,
@@ -144,8 +145,10 @@ const Routes = ({
   }
 
   return (
+  <>
+    <Header board={board} />
     <DragDropContext onDragEnd={handleDragEnd}>
-      <Header board={board} />
+      <Transition board={board} />
       <Container>
         <Route exact path="/" component={Home} />
         <Route exact path="/login" component={Login} />
@@ -180,7 +183,8 @@ const Routes = ({
         <ToastContainer />
       </Container>
     </DragDropContext>
-  )
+    </>
+    )
 }
 
 Routes.propTypes = {

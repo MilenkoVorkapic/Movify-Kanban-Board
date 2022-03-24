@@ -1,7 +1,7 @@
 import React from "react"
-import { prop } from "ramda"
+import { prop, path } from "ramda"
 import styled, { css } from "styled-components"
-import { string } from "prop-types"
+import { string, bool } from "prop-types"
 import { Draggable, Droppable } from "react-beautiful-dnd"
 import CandidateCard from "./CandidateCard"
 import { useSelector } from "react-redux"
@@ -88,7 +88,7 @@ const RemoveHotCandidate = styled.button`
   `}
 `
 
-const Transition = ({ board, removeHotCandidate }) => {
+const Transition = ({ board, removeHotCandidate, authenticated }) => {
   const { candidates, hotCandidateIds } = useSelector(({ transition }) => ({
     candidates: transition?.candidates ?? [],
     hotCandidateIds: transition?.hotCandidates ?? [],
@@ -104,6 +104,7 @@ const Transition = ({ board, removeHotCandidate }) => {
   const queriesFailed = hotCandidates?.some((hotCandidate) => !hotCandidate.isSuccess)
 
   hotCandidates = hotCandidates?.map((hotCandidate) => hotCandidate?.data?.data) ?? []
+  if (!authenticated) return null;
 
   return (
     <Container>
@@ -148,6 +149,9 @@ const Transition = ({ board, removeHotCandidate }) => {
 Transition.propTypes = {
   board: string,
   removeHotCandidate: func,
+  authenticated: bool,
 }
 
-export default connect(null, { removeHotCandidate })(Transition)
+export default connect((state) => ({
+  authenticated: path(["auth", "authenticated"], state),
+}), { removeHotCandidate })(Transition)

@@ -5,7 +5,6 @@ import { Link, Route } from "react-router-dom";
 import { bool, object, string } from "prop-types";
 import styled from "styled-components";
 import PriorityFilter from "./priorityFilter/PriorityFilter"
-import Transition from "./transition/Transition";
 
 const Container = styled.div(({ theme }) => ({
   backgroundColor: theme.colors.lightGrey,
@@ -85,7 +84,6 @@ const Header = ({ authenticated, board, hasReportingAccess }) => {
           </nav>
           <PriorityFilter board={board} />
         </Row>
-        <Transition board={board} />
       </Container >
     );
 };
